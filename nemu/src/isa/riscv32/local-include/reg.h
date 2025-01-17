@@ -23,7 +23,22 @@ static inline int check_reg_idx(int idx) {
   return idx;
 }
 
-#define gpr(idx) (cpu.gpr[check_reg_idx(idx)])
+static inline word_t *check_csrs_idx(word_t idx){
+    switch (idx) {
+        case 0x305:
+            return &(cpu.csrs.mtvec);
+        case 0x341:
+            return &(cpu.csrs.mepc);
+        case 0x300:
+            return &(cpu.csrs.mstatus);
+        case 0x342:
+            return &(cpu.csrs.mcause);
+        default:
+            Assert(false, "get unkown vector index "FMT_WORD, idx);
+            return NULL;
+    }
+}
+
 
 static inline const char* reg_name(int idx) {
   extern const char* regs[];

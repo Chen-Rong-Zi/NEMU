@@ -130,10 +130,22 @@ static inline void do_execve(Context *c) {
 }
 
 void do_syscall(Context *c) {
-  uintptr_t a[4];
-  a[0] = c->GPR1;
-
-  switch (a[0]) {
-    default: panic("Unhandled syscall ID = %d", a[0]);
-  }
+    uintptr_t a[4];
+    a[0] = c->GPR1;
+    a[1] = c->GPR2;
+    a[2] = c->GPR3;
+    a[3] = c->GPR4;
+    switch (a[0]) {
+        CASE(SYS_exit,  naive_uload(NULL, "/bin/menu"););
+        CASE(SYS_yield, yield(); c->GPRx = 0;);
+        CASE(SYS_write, do_write(c));
+        CASE(SYS_brk,   do_brk(c));
+        CASE(SYS_open,  do_open(c));
+        CASE(SYS_close, do_close(c));
+        CASE(SYS_read,  do_read(c));
+        CASE(SYS_lseek,  do_lseek(c));
+        CASE(SYS_gettimeofday, do_gettimeofday(c));
+        CASE(SYS_execve, do_execve(c));
+        default: panic("Unhandled syscall ID = %d", a[0]);
+    }
 }

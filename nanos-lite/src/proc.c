@@ -46,8 +46,8 @@ void init_proc() {
 
     switch_boot_pcb();
     context_kload(&pcb[0], hello_fun, "hello_fun: A\n");
-    context_kload(&pcb[1], hello_fun, "hello_fun: B\n");
-    // context_uload(&pcb[1], "/bin/menu", (char *[]){"--skip", NULL}, (char *[]){"environ", NULL});
+    // context_kload(&pcb[1], hello_fun, "hello_fun: B\n");
+    context_uload(&pcb[1], "/bin/menu", (char *[]){"--skip", NULL}, (char *[]){"environ", NULL});
     // naive_uload(NULL, "/bin/pal");
     switch_boot_pcb();
 }

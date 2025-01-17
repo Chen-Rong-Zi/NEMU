@@ -2,9 +2,9 @@
 #define __COMMON_H__
 
 /* Uncomment these macros to enable corresponding functionality. */
-//#define HAS_CTE
+#define HAS_CTE
 //#define HAS_VME
-//#define MULTIPROGRAM
+>>>>>>> ed489b14 (submit pa4)
 //#define TIME_SHARING
 
 #include <am.h>
